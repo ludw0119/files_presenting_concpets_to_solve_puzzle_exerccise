@@ -27,8 +27,10 @@
   </body>
   <script>
     let imageAddress;
-    let imageWidth;
-    let imageHeigth;
+    let container_width;
+    let container_height;
+    let numOfXPieces;
+    let numOfYPieces;
 
     document.addEventListener("DOMContentLoaded", startTheScript);
 
@@ -36,30 +38,45 @@
       document
         .querySelector("#myForm")
         .addEventListener("submit", loadTheImage);
+      //document.querySelector("#myForm").addEventListener("submit", loadNumbers);
     }
 
     function loadTheImage(event) {
       event.preventDefault(); //an important new method
       imageAddress = document.querySelector("#url").value;
       img.src = imageAddress;
-      imageWidth = document.querySelector("img").naturalWidth;
-      imageHeigth = document.querySelector("img").naturalHeight;
+      container_width = document.querySelector("img").naturalWidth;
+      container_height = document.querySelector("img").naturalHeight;
 
-      console.log(imageWidth);
-      //drawGrid();
+      loadNumbers();
+      //console.log(container_width);
+      return container_width, container_height;
+    }
+
+    function loadNumbers() {
+      numOfXPieces = document.getElementById("x_axis").value;
+      numOfYPieces = document.getElementById("y_axis").value;
+      //console.log(numOfXPieces);
+      //alertalert(numOfXPieces);
+
+      drawGrid(numOfXPieces, numOfYPieces, container_width, container_height);
+      return numOfXPieces;
+
+      //alert("function is called");
     }
 
     /*function theImageHasLoaded() {
-            alert("THE IMAGE HAS LOADED");
-          }*/
+                alert("THE IMAGE HAS LOADED");
+              }*/
 
     //Two dimensional loop
-    const numOfXPieces = document.getElementById("x_axis").value; //TO DO: val nr input 1
-    const numOfYPieces = document.getElementById("y_axis").value; //TO DO: val nr input 2
-    const container_width = document.querySelector("img").naturalWidth; //TO DO: image width?
-    const container_height = document.querySelector("img").naturalHeight; //TO DO: image heigth?
 
-    function drawGrid() {
+    function drawGrid(
+      numOfXPieces,
+      numOfYPieces,
+      container_width,
+      container_height
+    ) {
       document.querySelector(
         "#container"
       ).style.gridTemplateColumns = `repeat(${numOfXPieces}, 1fr)`; //EXPL: generate as many columns 1fr wide, as many pieces defined
@@ -68,7 +85,7 @@
       for (let y = 0; y < numOfYPieces; y++) {
         for (let x = 0; x < numOfXPieces; x++) {
           let piece = document.createElement("div"); //EXPL: generating div for every value point on x axis and on y axis
-          piece.style.height = container_height / numOfYPieces + "px"; //EXPL: generating div height
+          piece.style.height = container_height / numOfYPieces + "px"; //EXPL: generating .piece div height
           piece.textContent = `${x}${y}`; //EXPL: generating divs names
           piece.classList.add("piece"); //EXPL: addins css class .piece to generated elements
           document.querySelector("#container").appendChild(piece);
@@ -76,5 +93,6 @@
       }
     }
     //https://aruba.bynder.com/m/53b902a616f27b58/desktop_square_retina-Rodgers-Beach.jpg
+    //http://www.un.org/sites/www.un.org/files/styles/large/public/2016/02/11/ocean.jpg
   </script>
 </html>
