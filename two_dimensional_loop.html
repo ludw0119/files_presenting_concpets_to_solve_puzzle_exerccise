@@ -8,7 +8,7 @@
         #container{
             display:grid;
             background-color: beige;
-            width :200px;
+/*            width :200px;*/
 
         }
         .piece{
@@ -27,12 +27,13 @@
    <div id="container"></div>
     <script>
 
-        const numOfXPieces = 3;
-        const numOfYPieces = 3;
-        const container_width = 200;
-        const container_height = 200;
+        const numOfXPieces = 2;
+        const numOfYPieces = 4;
+        const container_width = 400;
+        const container_height = 400;
 
         document.querySelector("#container").style.gridTemplateColumns = `repeat(${numOfXPieces}, 1fr)`;
+        document.querySelector("#container").style.width = `${container_width}px`
         for (let y = 0; y < numOfYPieces; y++) {
                 for (let x = 0; x < numOfXPieces; x++) {
 
