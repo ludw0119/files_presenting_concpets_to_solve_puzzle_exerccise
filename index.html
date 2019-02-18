@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <form id="myForm">
+      <label for="url">Enter image URL:</label>
+      <input
+        id="url"
+        type="url"
+        name="main_picture"
+        placeholder="https://example.com"
+      />
+      <input type="text" name="x_axis" id="x_axis" value="" />
+      <input type="text" name="y_axis" id="y_axis" value="" />
+      <input id="submit" type="submit" value="Submit" />
+    </form>
+
+    <img id="img" src="" alt="" />
+    <div id="container"></div>
+  </body>
+  <script>
+    let imageAddress;
+    let imageWidth;
+    let imageHeigth;
+
+    document.addEventListener("DOMContentLoaded", startTheScript);
+
+    function startTheScript() {
+      document
+        .querySelector("#myForm")
+        .addEventListener("submit", loadTheImage);
+    }
+
+    function loadTheImage(event) {
+      event.preventDefault(); //an important new method
+      imageAddress = document.querySelector("#url").value;
+      img.src = imageAddress;
+      imageWidth = document.querySelector("img").naturalWidth;
+      imageHeigth = document.querySelector("img").naturalHeight;
+
+      console.log(imageWidth);
+      //drawGrid();
+    }
+
+    /*function theImageHasLoaded() {
+            alert("THE IMAGE HAS LOADED");
+          }*/
+
+    //Two dimensional loop
+    const numOfXPieces = document.getElementById("x_axis").value; //TO DO: val nr input 1
+    const numOfYPieces = document.getElementById("y_axis").value; //TO DO: val nr input 2
+    const container_width = document.querySelector("img").naturalWidth; //TO DO: image width?
+    const container_height = document.querySelector("img").naturalHeight; //TO DO: image heigth?
+
+    function drawGrid() {
+      document.querySelector(
+        "#container"
+      ).style.gridTemplateColumns = `repeat(${numOfXPieces}, 1fr)`; //EXPL: generate as many columns 1fr wide, as many pieces defined
+      document.querySelector("#container").style.width = `${container_width}px`; //EXPL: make contener "container_width" wide
+
+      for (let y = 0; y < numOfYPieces; y++) {
+        for (let x = 0; x < numOfXPieces; x++) {
+          let piece = document.createElement("div"); //EXPL: generating div for every value point on x axis and on y axis
+          piece.style.height = container_height / numOfYPieces + "px"; //EXPL: generating div height
+          piece.textContent = `${x}${y}`; //EXPL: generating divs names
+          piece.classList.add("piece"); //EXPL: addins css class .piece to generated elements
+          document.querySelector("#container").appendChild(piece);
+        }
+      }
+    }
+    //https://aruba.bynder.com/m/53b902a616f27b58/desktop_square_retina-Rodgers-Beach.jpg
+  </script>
+</html>
